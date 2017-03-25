@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Web Chat</title>
-    <meta name = "viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=10, maximum-scale=1.0, minimum-scale=1.0"  charset="utf-8" />
     <!-- jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
@@ -17,34 +17,46 @@
     <style>
         @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
         @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
         #title {
             font-family: 'Nanum Pen Script', cursive;
-            font-size: 60px;
+            font-size: 40px;
             font-weight: 600;
         }
+
         #content {
             font-family: 'Nanum Myeongjo', serif;
             font-size: 15px;
             background-color: white;
         }
+
+        body {
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#deefff+0,98bede+100;Blue+3D+%2310 */
+            background: rgb(222,239,255); /* Old browsers */
+            background: -moz-linear-gradient(top, rgba(222,239,255,1) 0%, rgba(152,190,222,1) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, rgba(222,239,255,1) 0%,rgba(152,190,222,1) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, rgba(222,239,255,1) 0%,rgba(152,190,222,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#deefff', endColorstr='#98bede',GradientType=0 ); /* IE6-9 */
+            padding-top: 60px;
+        }
     </style>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             //변수를 선언합니다.
             var socket = io.connect();
             //이벤트를 연결합니다.
-            socket.on('message', function(data){
+            socket.on('message', function (data) {
                 //추가할 문자열을 만듭니다.
                 var output = '';
-                output += "" + data.name +" 님 : " + data.message +"\n";
+                output += "" + data.name + " 님 : " + data.message + "\n";
                 var origin = $("#content").val();
                 //문서 객체를 추가합니다.
                 $("#content").val(origin + output);
                 $("#content").scrollTop($("#content")[0].scrollHeight);
             });
-            
+
             //버튼을 클릭할 때
-            $('button').click(function () {
+            $('#messageEnter').click(function () {
                 socket.emit('message', {
                     name: $('#name').val(),
                     message: $('#message').val(),
@@ -55,18 +67,39 @@
     </script>
 </head>
 <body>
-    <h1 class="container" id="title">대화방</h1>
-    <div id ="chat" class="container">
-        <form class="form-inline">
-            <div class="form-group">
-                <input type="text" class="form-control" id="name" placeholder="닉네임">
-                <input type="text" class="form-control" id="message" placeholder="하고싶은 말">
-                <button type="button" class="btn btn-primary" id="messageEnter">메시지 전송</button>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">TEST</a>
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#target">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
-            <div class="form-group">
-                <textarea class="form-control" rows="10" id="content" readonly></textarea>
+            <div class="collapse navbar-collapse" id="target">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">대화방</a></li>
+                    <li><a href="#">위치보기</a></li>
+                </ul>
             </div>
-</form>
+        </div>
+    </nav>
+    <div id="chat" class="container">
+        <section>
+            <h6 id="title">대화방</h6>
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" placeholder="닉네임">
+                    <input type="text" class="form-control" id="message" placeholder="하고싶은 말">
+                    <button type="button" class="btn btn-primary" id="messageEnter">메시지 전송</button>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="10" id="content" readonly></textarea>
+                </div>
+            </form>
+        </section>
     </div>
+    <footer></footer>
 </body>
 </html>
