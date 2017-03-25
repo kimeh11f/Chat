@@ -16,17 +16,14 @@
     <script src="/socket.io/socket.io.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
-        @import url('https://fonts.googleapis.com/earlyaccess/nanumbrushscript.css');
-        @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
-        @import url('https://fonts.googleapis.com/earlyaccess/nanumbrushscript.css');
+        @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
         #title {
             font-family: 'Fascinate Inline', cursive;
         }
         #content {
-            font-family: 'Nanum Brush Script';
+            font-family: 'Nanum Myeongjo', serif;
             font-size: 15px;
             background-color: white;
-            overflow:auto;
         }
     </style>
     <script>
@@ -57,23 +54,17 @@
 </head>
 <body>
     <h1 class="container" id="title">Chat</h1>
-    <div id ="writeChat" class="container">
+    <div id ="chat" class="container">
         <form class="form-inline">
             <div class="form-group">
                 <input type="text" class="form-control" id="name" placeholder="닉네임">
-            </div>
-            <div class="form-group">
                 <input type="text" class="form-control" id="message" placeholder="하고싶은 말">
+                <button type="button" class="btn btn-primary" id="messageEnter">메시지 전송</button>
             </div>
-            <button type ="button" class="btn btn-primary" id="messageEnter">메시지 전송</button>
-        </form>
-    </div>
-    <div id="viewChat" class="container">
-        <form class="form-inline">
             <div class="form-group">
                 <textarea class="form-control" rows="10" id="content" readonly></textarea>
             </div>
-        </form>
+</form>
     </div>
 </body>
 </html>
