@@ -18,12 +18,6 @@
         @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
         @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 
-        #title {
-            font-family: 'Nanum Pen Script', cursive;
-            font-size: 40px;
-            font-weight: 600;
-        }
-
         #content {
             font-family: 'Nanum Myeongjo', serif;
             font-size: 15px;
@@ -65,6 +59,8 @@
             });
         });
     </script>
+    <!-- 네이버 지도-->
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=jry2T2vhP9gAE8vocSUl"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -79,15 +75,14 @@
             </div>
             <div class="collapse navbar-collapse" id="target">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">대화방</a></li>
-                    <li><a href="#">위치보기</a></li>
+                    <li><a href="#">AAA</a></li>
+                    <li><a href="#">BBB</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div id="chat" class="container">
         <section>
-            <h6 id="title">대화방</h6>
             <form class="form-inline">
                 <div class="form-group">
                     <input type="text" class="form-control" id="name" placeholder="닉네임">
@@ -100,6 +95,39 @@
             </form>
         </section>
     </div>
-    <footer></footer>
+    <!-- Button trigger modal -->
+    <div id="mapButton" class="container">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            위치 보기
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="map" style="width:100%;height:400px;"></div>
+
+                        <script>
+                            var mapOptions = {
+                                center: new naver.maps.LatLng(37.3595704, 127.105399),
+                                zoom: 10
+                            };
+
+                            var map = new naver.maps.Map('map', mapOptions);
+                        </script>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <footer></footer>
 </body>
 </html>
