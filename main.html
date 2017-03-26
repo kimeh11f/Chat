@@ -61,6 +61,7 @@
     </script>
     <!-- 네이버 지도-->
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=jry2T2vhP9gAE8vocSUl"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -111,17 +112,40 @@
                     </div>
                     <div class="modal-body">
                         <div id="map" style="width:100%;height:400px;"></div>
-                            <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=YOUR_CLIENT_ID&callback=iniMap"></script>
-                            <script type="text/javascript">
-                                var mapOptions={
+                        <script>
+                            var mapOptions = {
                                 center: new naver.maps.LatLng(37.3595704, 127.105399),
                                 zoom: 10
-                                };
-                                function initMap() {
-                                map=new naver.maps.Map('map', mapOptions);
-                                }
+                            };
+                            var infowindow = new naver.maps.InfoWindow();
 
-                            //var map = new naver.maps.Map('map', mapOptions);
+                            var map = new naver.maps.Map('map', mapOptions);
+                            function onSuccessGeolocation(position) {
+                                alert("ADSf");
+                                var location = new naver.maps.LatLng(position.coords.latitude,
+                                    position.coords.longitude);
+                                alert(position.coords.latitude);
+                                map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
+                                map.setZoom(10); // 지도의 줌 레벨을 변경합니다.
+
+                                infowindow.setContent('<div style="padding:20px;">' +
+                                    'latitude: ' + location.lat() + '<br />' +
+                                    'longitude: ' + location.lng() + '</div>');
+                                infowindow.open(map, location);
+                            }
+                            function onErrorGeolocation() {
+                                var center = map.getCenter();
+                                alert("에러!");
+                                infowindow.setContent('<div style="padding:20px;">' +
+                                    '<h5 style="margin-bottom:5px;color:#f00;">Geolocation failed!</h5>' + "latitude: " + center.lat() + "<br />longitude: " + center.lng() + '</div>');
+
+                                infowindow.open(map, center);
+                            }
+
+                            if (navigator.geolocation) {
+                                alert("여기");
+                                navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
+                            }
                         </script>
                     </div>
                     <div class="modal-footer">
