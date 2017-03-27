@@ -89,7 +89,6 @@
                         }
                     }
                 }
-                
             });
             //버튼을 클릭할 때
             $('#messageEnter').click(function () {
@@ -143,10 +142,15 @@
             });
             //맵 닫기
             $('#closeMap').click(function () {
-                markers = [];
-                socket.emit('closeMap', {
-                    socketId: socket.id
-                });
+                if (navigator.geolocation) {
+                    for (var i = 0; i < markers.length; i++) {
+                        markers[i].setMap(null);
+                    }
+                    markers = [];
+                    socket.emit('closeMap', {
+                        socketId: socket.id
+                    });
+                }
             });
         });
     </script>
