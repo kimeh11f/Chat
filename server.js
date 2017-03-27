@@ -25,4 +25,11 @@ io.sockets.on('connection', function(socket){
         console.log("아이디 : " + data.name + ", 내용 : " + data.message + ", 날짜 : " + data.date); 
         io.sockets.emit('message', data);
     });
+
+    socket.on('pushLocation', function (data) {
+        //클라이언트의 message 이벤트를 발생시킵니다.
+        console.log("latitude : " + data.latitude + ", longitude : " + data.longitude);
+        socket.broadcast.emit('getMap', data);
+    });
+
 });
