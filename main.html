@@ -15,9 +15,12 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <style>
-        @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+        @import url(//fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
         @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 
+        #navTitle {
+            font-family: 'Nanum Brush Script', cursive;
+        }
         #content {
             font-family: 'Nanum Myeongjo', serif;
             font-size: 15px;
@@ -167,7 +170,7 @@
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">TEST</a>
+            <a class="navbar-brand" href="#" id="navTitle">채팅방</a>
             <div class="navbar-header">
                 <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#target">
                     <span class="sr-only">Toggle navigation</span>
