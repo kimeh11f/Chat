@@ -18,6 +18,7 @@ app.use(function(req, res){
 
 //소켓 서버 생성
 var io = socketio.listen(server);
+var id = 0;
 io.sockets.on('connection', function(socket){
     //message 이벤트
     socket.on('message', function(data){
@@ -29,7 +30,15 @@ io.sockets.on('connection', function(socket){
     socket.on('pushLocation', function (data) {
         //클라이언트의 message 이벤트를 발생시킵니다.
         console.log("latitude : " + data.latitude + ", longitude : " + data.longitude);
-        socket.broadcast.emit('getMap', data);
+        id = socket.id;
+        socket.broadcast.emit('addMarker', data);
+    });
+
+    socket.on('replyLocation', function (data) {
+        //클라이언트의 message 이벤트를 발생시킵니다.
+        if (id != 0) {
+            io.sockets.to(id).emit('initMap', data);
+        }
     });
 
 });

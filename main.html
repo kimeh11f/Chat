@@ -39,6 +39,9 @@
             //변수를 선언합니다.
             var socket = io.connect();
             var map;
+            var latitude;
+            var longitude;
+
             //이벤트를 연결합니다.
             socket.on('message', function (data) {
                 //추가할 문자열을 만듭니다.
@@ -50,7 +53,22 @@
                 $("#content").scrollTop($("#content")[0].scrollHeight);
             });
 
-            socket.on('getMap', function (data) {
+            socket.on('addMarker', function (data) {
+                if (navigator.geolocation) {
+                    var marker = new naver.maps.Marker({
+                        position: new naver.maps.LatLng(data.latitude,
+                            data.longitude),
+                        map: map
+                    });//마커 표시
+
+                    socket.emit('replyLocation', {
+                        latitude: latitude,
+                        longitude: longitude
+                    });    
+                }
+            });
+
+            socket.on('initMap', function (data) {
                 if (navigator.geolocation) {
                     var marker = new naver.maps.Marker({
                         position: new naver.maps.LatLng(data.latitude,
@@ -59,6 +77,7 @@
                     });//마커 표시
                 }
             });
+
             //버튼을 클릭할 때
             $('#messageEnter').click(function () {
                 socket.emit('message', {
@@ -77,6 +96,9 @@
 
                 map = new naver.maps.Map('map', mapOptions);
                 function onSuccessGeolocation(position) {
+                    latitude = position.coords.latitude;
+                    longitude = position.coords.longitude;
+
                     var location = new naver.maps.LatLng(position.coords.latitude,
                         position.coords.longitude);
                     map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
