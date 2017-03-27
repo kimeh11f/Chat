@@ -42,6 +42,7 @@
             var latitude;
             var longitude;
             var markers = [];
+            var mapOpen = false;
             //이벤트를 연결합니다.
             socket.on('message', function (data) {
                 //추가할 문자열을 만듭니다.
@@ -54,22 +55,25 @@
             });
 
             socket.on('addMarker', function (data) {
-                if (navigator.geolocation) {
-                    var marker = new naver.maps.Marker({
-                        position: new naver.maps.LatLng(data.latitude,
-                            data.longitude),
-                        map: map
-                    });//마커 표시
+                if (mapOpen == true) {
+                    if (navigator.geolocation) {
+                        var marker = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(data.latitude,
+                                data.longitude),
+                            map: map
+                        });//마커 표시
 
-                    marker.id = data.id; //신규속성 id (소켓id)추가.
-                    alert("addMarker : " + marker.id);
-                    markers.push(marker);
+                        marker.id = data.id; //신규속성 id (소켓id)추가.
+                        alert("addMarker : " + marker.id);
+                        markers.push(marker);
 
-                    socket.emit('replyLocation', {
-                        latitude: latitude,
-                        longitude: longitude
-                    });    
+                        socket.emit('replyLocation', {
+                            latitude: latitude,
+                            longitude: longitude
+                        });
+                    }
                 }
+                
             });
 
             socket.on('initMap', function (data) {
@@ -99,8 +103,9 @@
                     date: new Date().toString()
                 });
             });
-            //버튼을 클릭할 때
+            //맵 오픈
             $('#mapButton').click(function () {
+                mapOpen = true;
                 var mapOptions = {
                     center: new naver.maps.LatLng(37.3595704, 127.105399),
                     zoom: 10,
@@ -143,6 +148,7 @@
             });
             //맵 닫기
             $('#closeMap').click(function () {
+                mapOpen = false;
                 if (navigator.geolocation) {
                     for (var i = 0; i < markers.length; i++) {
                         markers[i].setMap(null);
@@ -208,7 +214,7 @@
                         <h4 class="modal-title" id="myModalLabel">위치 보기</h4>
                     </div>
                     <div class="modal-body">
-                        <div id="map" style="width:100%;height:400px;"></div>
+                        <div id="map" style="width:100%;height:90%;"></div>
 <!--                        <script>
                             var mapOptions = {
                                 center: new naver.maps.LatLng(37.3595704, 127.105399),
