@@ -93,6 +93,10 @@
                         position.coords.longitude),
                         new naver.maps.LatLng(position.coords.latitude - 0.02,
                             position.coords.longitude - 0.02)));//마커 애니메이션
+                    socket.emit('pushLocation', {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    });    
                 }
                 function onErrorGeolocation(error) {
                     alert("에러코드 : " + error.code);
@@ -100,10 +104,6 @@
 
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
-                    socket.emit('pushLocation', {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude
-                    });    
                 }
             });
         });
