@@ -55,24 +55,24 @@
             });
 
             socket.on('addMarker', function (data) {
-                if (mapOpen == true) {
+//                if (mapOpen == true) {
                     if (navigator.geolocation) {
-                        var marker = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(data.latitude,
-                                data.longitude),
-                            map: map
-                        });//마커 표시
+                    var marker = new naver.maps.Marker({
+                        position: new naver.maps.LatLng(data.latitude,
+                            data.longitude),
+                        map: map
+                    });//마커 표시
 
-                        marker.id = data.id; //신규속성 id (소켓id)추가.
-                        alert("addMarker : " + marker.id);
-                        markers.push(marker);
+                    marker.id = data.id; //신규속성 id (소켓id)추가.
+                    alert("addMarker : " + marker.id);
+                    markers.push(marker);
 
-                        socket.emit('replyLocation', {
-                            latitude: latitude,
-                            longitude: longitude
-                        });
+                    socket.emit('replyLocation', {
+                        latitude: latitude,
+                        longitude: longitude
+                    });    
                     }
-                }
+  //              }
                 
             });
 
