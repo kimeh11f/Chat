@@ -57,6 +57,47 @@
                     date: new Date().toString()
                 });
             });
+            //버튼을 클릭할 때
+            $('#mapButton').click(function () {
+                var mapOptions = {
+                    center: new naver.maps.LatLng(37.3595704, 127.105399),
+                    zoom: 10,
+                    mapTypeId: naver.maps.MapTypeId.NORMAL
+                };
+
+                var map = new naver.maps.Map('map', mapOptions);
+                function onSuccessGeolocation(position) {
+                    var location = new naver.maps.LatLng(position.coords.latitude,
+                        position.coords.longitude);
+                    map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
+                    map.setZoom(10); // 지도의 줌 레벨을 변경합니다.
+
+                    var marker = new naver.maps.Marker({
+                        position: new naver.maps.LatLng(position.coords.latitude,
+                            position.coords.longitude),
+                        map: map,
+                        animation: naver.maps.Animation.BOUNCE
+                    });//마커 표시
+
+                    map.fitBounds(naver.maps.LatLngBounds.bounds(new naver.maps.LatLng(position.coords.latitude,
+                        position.coords.longitude),
+                        new naver.maps.LatLng(position.coords.latitude - 0.02,
+                            position.coords.longitude - 0.02)));//마커 애니메이션
+                }
+                function onErrorGeolocation(error) {
+                    alert("에러코드 : " + error.code);
+                }
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
+                }
+                /*
+                socket.emit('map', {
+                    name: $('#name').val(),
+                    message: $('#message').val(),
+                    date: new Date().toString()
+                });*/
+            });
         });
     </script>
     <!-- 네이버 지도-->
@@ -97,8 +138,8 @@
         </section>
     </div>
     <!-- Button trigger modal -->
-    <div id="mapButton" class="container">
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+    <div id="mapDiv" class="container">
+        <button id ="mapButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
             위치 보기
         </button>
 
@@ -112,7 +153,7 @@
                     </div>
                     <div class="modal-body">
                         <div id="map" style="width:100%;height:400px;"></div>
-                        <script>
+<!--                        <script>
                             var mapOptions = {
                                 center: new naver.maps.LatLng(37.3595704, 127.105399),
                                 zoom: 10,
@@ -145,7 +186,7 @@
                             if (navigator.geolocation) {
                                 navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
                             }
-                        </script>
+                        </script> -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
