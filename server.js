@@ -31,6 +31,7 @@ io.sockets.on('connection', function(socket){
         //클라이언트의 message 이벤트를 발생시킵니다.
         console.log("latitude : " + data.latitude + ", longitude : " + data.longitude);
         id = socket.id;
+        data.id = id;
         socket.broadcast.emit('addMarker', data);
     });
 
@@ -40,5 +41,8 @@ io.sockets.on('connection', function(socket){
             io.sockets.to(id).emit('initMap', data);
         }
     });
-
+    socket.on('closeMap', function (data) {
+        //클라이언트의 message 이벤트를 발생시킵니다.
+        socket.broadcast.emit('deleteMarker', data);
+    });
 });
