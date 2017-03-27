@@ -62,6 +62,7 @@
                     });//마커 표시
 
                     marker.id = data.id; //신규속성 id (소켓id)추가.
+                    alert("addMarker : " + marker.id);
                     markers.push(marker);
 
                     socket.emit('replyLocation', {
