@@ -143,6 +143,7 @@
             });
             //맵 닫기
             $('#closeMap').click(function () {
+                markers = null;
                 socket.emit('closeMap', {
                     socketId: socket.id
                 });
