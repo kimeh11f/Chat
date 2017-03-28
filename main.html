@@ -114,7 +114,7 @@
                 $('#message').focus();
             });
             //엔터키 입력'
-            $('#messageEnter').keykdown(function (e) {
+            $('#message').keydown(function (e) {
                 if (e.keyCode == 13) {
                     $('#name').attr("readonly", true);
                     socket.emit('message', {
