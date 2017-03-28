@@ -29,13 +29,12 @@
         }
 
         body {
-            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#deefff+0,98bede+100;Blue+3D+%2310 */
-            background: rgb(222,239,255); /* Old browsers */
-            background: -moz-linear-gradient(top, rgba(222,239,255,1) 0%, rgba(152,190,222,1) 100%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(top, rgba(222,239,255,1) 0%,rgba(152,190,222,1) 100%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(to bottom, rgba(222,239,255,1) 0%,rgba(152,190,222,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#deefff', endColorstr='#98bede',GradientType=0 ); /* IE6-9 */
- 
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b2e1ff+37,66b6fc+96 */
+            background: rgb(178,225,255); /* Old browsers */
+            background: -moz-linear-gradient(top, rgba(178,225,255,1) 37%, rgba(102,182,252,1) 96%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, rgba(178,225,255,1) 37%,rgba(102,182,252,1) 96%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, rgba(178,225,255,1) 37%,rgba(102,182,252,1) 96%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b2e1ff', endColorstr='#66b6fc',GradientType=0 ); /* IE6-9 */
             padding-top: 60px;
         }
     </style>
@@ -102,8 +101,13 @@
             socket.on('setPeopleCnt', function (data) {
                 $("#navTitle").text("채팅방 : ("+data.peopleCnt+" 명)");
             });
-            //버튼을 클릭할 때
+            //메시지 전송 버튼을 클릭할 때
             $('#messageEnter').click(function () {
+                if (!$('#name').val()) {
+                    alert("닉네임을 입력하세요.");
+                    return;
+                }
+
                 $('#name').attr("readonly", true);
                 socket.emit('message', {
                     name: $('#name').val(),
@@ -113,8 +117,12 @@
                 $('#message').val("");
                 $('#message').focus();
             });
-            //엔터키 입력'
+            //메시지 엔터키 입력
             $('#message').keydown(function (e) {
+                if (!$('#name').val()) {
+                    alert("닉네임을 입력하세요.");
+                    return;
+                }
                 if (e.keyCode == 13) {
                     $('#name').attr("readonly", true);
                     socket.emit('message', {
