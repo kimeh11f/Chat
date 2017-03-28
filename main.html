@@ -99,11 +99,13 @@
             });
             //버튼을 클릭할 때
             $('#messageEnter').click(function () {
+                $('#name').attr("readonly", true);
                 socket.emit('message', {
                     name: $('#name').val(),
                     message: $('#message').val(),
                     date: new Date().toString()
                 });
+                $('#message').val("");
             });
             //맵 오픈
             $('#mapButton').click(function () {
@@ -128,8 +130,7 @@
                         position: new naver.maps.LatLng(position.coords.latitude,
                             position.coords.longitude),
                         map: map,
-                        animation: naver.maps.Animation.BOUNCE,
-                        title : "나"
+                        animation: naver.maps.Animation.BOUNCE
                     });//마커 표시
 
                     map.fitBounds(naver.maps.LatLngBounds.bounds(new naver.maps.LatLng(position.coords.latitude,
