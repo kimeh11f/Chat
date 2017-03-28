@@ -19,8 +19,11 @@ app.use(function(req, res){
 //소켓 서버 생성
 var io = socketio.listen(server);
 var id = 0;
+var peopleCnt = 0;
 io.sockets.on('connection', function (socket) {
     console.log(socket.id + " 접속");
+    peopleCnt++;
+    io.sockets.emit('setPeopleCnt', { peopleCnt: peopleCnt});
     //message 이벤트
     socket.on('message', function(data){
         //클라이언트의 message 이벤트를 발생시킵니다.
@@ -48,9 +51,11 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
+        peopleCnt--;
         //클라이언트의 message 이벤트를 발생시킵니다.
         socket.broadcast.emit('deleteMarker', {
             socketId: socket.id
         });
+        io.sockets.emit('setPeopleCnt', { peopleCnt: peopleCnt });
     });
 });

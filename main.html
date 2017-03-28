@@ -35,6 +35,7 @@
             background: -webkit-linear-gradient(top, rgba(222,239,255,1) 0%,rgba(152,190,222,1) 100%); /* Chrome10-25,Safari5.1-6 */
             background: linear-gradient(to bottom, rgba(222,239,255,1) 0%,rgba(152,190,222,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#deefff', endColorstr='#98bede',GradientType=0 ); /* IE6-9 */
+ 
             padding-top: 60px;
         }
     </style>
@@ -97,6 +98,10 @@
                     }
                 }
             });
+
+            socket.on('setPeopleCnt', function (data) {
+                $("#navTitle").text("채팅방 : ("+data.peopleCnt+" 명)");
+            });
             //버튼을 클릭할 때
             $('#messageEnter').click(function () {
                 $('#name').attr("readonly", true);
@@ -106,6 +111,20 @@
                     date: new Date().toString()
                 });
                 $('#message').val("");
+                $('#message').focus();
+            });
+            //엔터키 입력'
+            $('#messageEnter').keykdown(function (e) {
+                if (e.keyCode == 13) {
+                    $('#name').attr("readonly", true);
+                    socket.emit('message', {
+                        name: $('#name').val(),
+                        message: $('#message').val(),
+                        date: new Date().toString()
+                    });
+                    $('#message').val("");
+                    $('#message').focus();
+                }
             });
             //맵 오픈
             $('#mapButton').click(function () {
