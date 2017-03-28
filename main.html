@@ -150,7 +150,11 @@
             });
             //맵 닫기
             $('#closeMap').click(function () {
+                map = null;
+                latitude = null;
+                longitude = null;
                 mapOpen = false;
+
                 if (navigator.geolocation) {
                     for (var i = 0; i < markers.length; i++) {
                         markers[i].setMap(null);
