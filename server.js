@@ -3,18 +3,20 @@ var fs = require('fs');
 var socketio = require('socket.io');
 var express = require('express');
 var app = express();
-//웹 서버 생성
 
+app.use(express.static('images'));
+//웹 서버 생성
 var server = http.createServer(app).listen((process.env.PORT || 52273), function(){
     console.log('Server Running');
 });
 
-app.use(function(req, res){
+app.get('/', function(req, res){
     fs.readFile('main.html', function(error, data){
         res.writeHead(200, {'Content-Type' : 'text/html'});
         res.end(data);
     });
 });
+
 
 //소켓 서버 생성
 var io = socketio.listen(server);

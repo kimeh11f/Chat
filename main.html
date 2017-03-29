@@ -12,11 +12,10 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-
     <script src="/socket.io/socket.io.js"></script>
     <style>
-        @import url(//fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
-        @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+        @import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+        @import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 
         #navTitle {
             font-family: 'Nanum Brush Script', cursive;
@@ -27,15 +26,12 @@
             font-size: 15px;
             background-color: white;
         }
-
         body {
-            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b2e1ff+64,66b6fc+100 */
-            background: rgb(178,225,255); /* Old browsers */
-            background: -moz-linear-gradient(top, rgba(178,225,255,1) 64%, rgba(102,182,252,1) 100%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(top, rgba(178,225,255,1) 64%,rgba(102,182,252,1) 100%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(to bottom, rgba(178,225,255,1) 64%,rgba(102,182,252,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b2e1ff', endColorstr='#66b6fc',GradientType=0 ); /* IE6-9 */
             padding-top: 60px;
+        }
+        #chat {
+            background: url(background.jpg) no-repeat center center fixed;
+            background-size: cover;
         }
     </style>
     <script>
@@ -196,10 +192,8 @@
             });
         });
     </script>
-
     <!-- 네이버 지도-->
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=jry2T2vhP9gAE8vocSUl"></script>
-
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -233,12 +227,14 @@
                 </div>
             </form>
         </section>
+
+        <button id="mapButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+            위치 공유
+        </button>
     </div>
     <!-- Button trigger modal -->
     <div id="mapDiv" class="container"> 
-        <button id ="mapButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-            위치 공유
-        </button>
+
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -250,40 +246,6 @@
                     </div>
                     <div class="modal-body">
                         <div id="map" style="width:100%;height:350px;"></div>
-<!--                        <script>
-                            var mapOptions = {
-                                center: new naver.maps.LatLng(37.3595704, 127.105399),
-                                zoom: 10,
-                                mapTypeId: naver.maps.MapTypeId.NORMAL
-                            };
-
-                            var map = new naver.maps.Map('map', mapOptions);
-                            function onSuccessGeolocation(position) {
-                                var location = new naver.maps.LatLng(position.coords.latitude,
-                                    position.coords.longitude);
-                                map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
-                                map.setZoom(10); // 지도의 줌 레벨을 변경합니다.
-                                
-                                var marker = new naver.maps.Marker({
-                                    position: new naver.maps.LatLng(position.coords.latitude,
-                                        position.coords.longitude),
-                                    map: map,
-                                    animation: naver.maps.Animation.BOUNCE
-                                });//마커 표시
-
-                                map.fitBounds(naver.maps.LatLngBounds.bounds(new naver.maps.LatLng(position.coords.latitude,
-                                    position.coords.longitude),
-                                    new naver.maps.LatLng(position.coords.latitude - 0.02,
-                                        position.coords.longitude - 0.02)));//마커 애니메이션
-                            }
-                            function onErrorGeolocation(error) {
-                                alert("에러코드 : " + error.code); 
-                            }
-
-                            if (navigator.geolocation) {
-                                navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
-                            }
-                        </script> -->
                     </div>
                     <div class="modal-footer">
                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> --> 
