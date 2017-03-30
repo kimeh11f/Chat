@@ -118,14 +118,14 @@
     </style>
     <script>
         $(document).ready(function () {
-            //변수를 선언합니다.
+
             var socket = io.connect();
             var map;
             var latitude;
             var longitude;
             var markers = [];
             var mapOpen = false;
-            //이벤트를 연결합니다.
+
             socket.on('message', function (data) {
                 //추가할 문자열을 만듭니다.
                 var output = '';
