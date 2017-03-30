@@ -127,11 +127,11 @@
             var mapOpen = false;
 
             socket.on('message', function (data) {
-                //추가할 문자열을 만듭니다.
+                //메시지
                 var output = '';
                 output += "" + data.name + " 님 : " + data.message + "\n";
                 var origin = $("#content").val();
-                //문서 객체를 추가합니다.
+                //채팅창에 메시지 추가
                 $("#content").val(origin + output);
                 $("#content").scrollTop($("#content")[0].scrollHeight);
             });
