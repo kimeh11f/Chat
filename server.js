@@ -23,13 +23,13 @@ var io = socketio.listen(server);
 var id = 0;
 var peopleCnt = 0;
 io.sockets.on('connection', function (socket) {
-    console.log(socket.id + " 접속");
+    console.log(socket.id + " 접속 ("+ socket.request.connection.remoteAddress+")" );
     peopleCnt++;
     io.sockets.emit('setPeopleCnt', { peopleCnt: peopleCnt});
     //message 이벤트
     socket.on('message', function(data){
         //클라이언트의 message 이벤트를 발생시킵니다.
-        console.log("아이디 : " + data.name + ", 내용 : " + data.message + ", 날짜 : " + data.date); 
+        console.log("아이디 : " + data.name + ", 내용 : " + data.message + ", 날짜 : " + data.date + "(" + socket.request.connection.remoteAddress +")"); 
         io.sockets.emit('message', data);
     });
 
@@ -54,6 +54,7 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('disconnect', function () {
         peopleCnt--;
+        console.log(socket.id + " 접속 종료 (" + socket.request.connection.remoteAddress + ")");
         //클라이언트의 message 이벤트를 발생시킵니다.
         socket.broadcast.emit('deleteMarker', {
             socketId: socket.id
