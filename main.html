@@ -40,7 +40,7 @@
         }
         #chat {
             background: url(background.jpg) no-repeat center center fixed;
-            background-size: cover;
+            background-size:cover;
         }
         .btn-pink {
             background-color: hsl(0, 100%, 77%) !important;
@@ -278,55 +278,53 @@
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=jry2T2vhP9gAE8vocSUl"></script>
 </head>
 <body>
-    <nav class="navbar navbar-custom navbar-fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#" id="navTitle">채팅방</a>
-            <div class="navbar-header">
-                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#target">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="target">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">A.</a></li>
-                    <li><a href="#">B.</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div id="chat" class="container">
-        <section>
-            <form class="form-inline">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="name" placeholder="닉네임">
-                    <input type="text" class="form-control" id="message" placeholder="하고싶은 말">
-                    <button type="button" class="btn btn-pink" id="messageEnter">메시지 전송</button>
+    <div class="container">
+        <nav class="navbar navbar-custom navbar-fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#" id="navTitle">채팅방</a>
+                <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#target">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
+                <div class="collapse navbar-collapse" id="target">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">A.</a></li>
+                        <li><a href="#">B.</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section id="chat">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="sr-only" for="name">닉네임</label>
+                        <input type="text" class="form-control" id="name" placeholder="닉네임">
+                        <label class="sr-only" for="message">메시지</label>
+                        <input type="text" class="form-control" id="message" placeholder="메시지">
+                    </div>
+                    <button type="button" class="btn btn-pink" id="messageEnter">메시지 전송</button>
+                </form>
                 <div class="form-group">
                     <textarea class="form-control" rows="10" id="content" readonly></textarea>
                 </div>
-            </form>
+            <button id="mapButton" type="button" class="btn btn-brown" data-toggle="modal" data-target="#myModal">위치 공유</button>
         </section>
-
-        <button id="mapButton" type="button" class="btn btn-brown" data-toggle="modal" data-target="#myModal">
-            위치 공유
-        </button>
-    </div>
-    <!-- Button trigger modal -->
-    <div id="mapDiv" class="container"> 
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div id="map" style="width:100%;height:350px;"></div>
+        <!-- Button trigger modal -->
+        <div id="mapDiv">
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div id="map" style="width:100%;height:350px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        <footer></footer>
 </body>
 </html>
