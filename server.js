@@ -5,7 +5,8 @@ var express = require('express');
 var app = express();
 
 app.use("/images", express.static(__dirname+'/images'));
-app.use("/style", express.static(__dirname+'/style'));
+app.use("/style", express.static(__dirname + '/style'));
+app.use("/script", express.static(__dirname + '/script'));
 //웹 서버 생성
 var server = http.createServer(app).listen((process.env.PORT || 52273), function(){
     console.log('Server Running');

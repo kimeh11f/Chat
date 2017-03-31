@@ -14,6 +14,7 @@
     <!-- 네이버 지도-->
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=jry2T2vhP9gAE8vocSUl"></script>
     <script src="/socket.io/socket.io.js"></script>
+
     <style>
         @import url(style/style.css);
         #content {
@@ -38,9 +39,10 @@
             background-size: cover;
         }
     </style>
+    <script src="script/common.js"></script>
     <script>
+        
         $(document).ready(function () {
-
             var socket = io.connect();
             var map;
             var latitude;
