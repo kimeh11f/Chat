@@ -1,0 +1,85 @@
+﻿@import url(//fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
+#navTitle {
+    font-family: 'Nanum Brush Script', cursive;
+    font-size: 30px;
+}
+
+body {
+    padding-top: 60px;
+}
+
+.btn-pink {
+    background-color: hsl(0, 100%, 77%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffb2b2", endColorstr="#ff8989");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#ffb2b2), to(#ff8989));
+    background-image: -moz-linear-gradient(top, #ffb2b2, #ff8989);
+    background-image: -ms-linear-gradient(top, #ffb2b2, #ff8989);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffb2b2), color-stop(100%, #ff8989));
+    background-image: -webkit-linear-gradient(top, #ffb2b2, #ff8989);
+    background-image: -o-linear-gradient(top, #ffb2b2, #ff8989);
+    background-image: linear-gradient(#ffb2b2, #ff8989);
+    border-color: #ff8989 #ff8989 hsl(0, 100%, 75%);
+    color: aliceblue !important;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.13);
+    -webkit-font-smoothing: antialiased;
+}
+
+.btn-brown {
+    background-color: hsl(31, 15%, 37%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#897865", endColorstr="#6c5e50");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#897865), to(#6c5e50));
+    background-image: -moz-linear-gradient(top, #897865, #6c5e50);
+    background-image: -ms-linear-gradient(top, #897865, #6c5e50);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #897865), color-stop(100%, #6c5e50));
+    background-image: -webkit-linear-gradient(top, #897865, #6c5e50);
+    background-image: -o-linear-gradient(top, #897865, #6c5e50);
+    background-image: linear-gradient(#897865, #6c5e50);
+    border-color: #6c5e50 #6c5e50 hsl(31, 15%, 34.5%);
+    color: #fff !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.16);
+    -webkit-font-smoothing: antialiased;
+}
+
+.modal-content {
+    background-color: rgba(240, 248, 255, 0.00);
+}
+
+.navbar-custom {
+    background-color: rgba(51, 170, 51, 0.71);
+    color: #ffffff;
+    border-radius: 0;
+}
+
+    .navbar-custom .navbar-nav > li > a {
+        color: #fff;
+    }
+
+    .navbar-custom .navbar-nav > .active > a {
+        color: #ffffff;
+        background-color: transparent;
+    }
+
+        .navbar-custom .navbar-nav > li > a:hover,
+        .navbar-custom .navbar-nav > li > a:focus,
+        .navbar-custom .navbar-nav > .active > a:hover,
+        .navbar-custom .navbar-nav > .active > a:focus,
+        .navbar-custom .navbar-nav > .open > a {
+            text-decoration: none;
+            background-color: #33aa33;
+        }
+
+    .navbar-custom .navbar-brand {
+        color: #eeeeee;
+    }
+
+    .navbar-custom .navbar-toggle {
+        background-color: #eeeeee;
+    }
+
+    .navbar-custom .icon-bar {
+        background-color: #33aa33;
+    }
