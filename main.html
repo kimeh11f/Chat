@@ -17,10 +17,9 @@
 
     <style>
         @import url(style/style.css);
-        #content {
+
+        #discussion {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 15px;
-            background-color: rgba(255, 255, 255, 0.26);
             color: black;
         }
 
@@ -38,6 +37,87 @@
             background: url(../images/background.jpg) no-repeat center center fixed;
             background-size: cover;
         }
+
+        .discussion {
+            list-style: none;
+            margin: 0;
+            padding: 0 0 50px 0;
+        }
+
+            .discussion li {
+                padding: 0.5rem;
+                overflow: hidden;
+                display: flex;
+            }
+
+            .discussion .avatar {
+                width: 40px;
+                position: relative;
+                font-size: 1rem;
+            }
+
+                .discussion .avatar img {
+                    display: block;
+                    width: 100%;
+                }
+            .discussion time {
+                font-size: 0.9rem;
+                color: #4f4642;
+            }
+        .other .avatar:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border: 5px solid white;
+            border-left-color: transparent;
+            border-bottom-color: transparent;
+        }
+
+        .self {
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+            .self .messages {
+                order: 1;
+                border-bottom-right-radius: 0;
+            }
+
+            .self .avatar {
+                order: 2;
+            }
+
+                .self .avatar:after {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 0;
+                    height: 0;
+                    border: 5px solid white;
+                    border-right-color: transparent;
+                    border-top-color: transparent;
+                    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+                }
+
+        .messages {
+            background: rgba(255, 255, 255, 0.90);
+            padding: 10px;
+            border-radius: 2px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+            .messages p {
+                margin: 0 0 0.2rem 0;
+            }
+        #discussionForm {
+            background-color: rgba(255, 255, 255, 0.26);
+            height: 250px;
+            overflow-y: scroll;
+        }
     </style>
     <script src="script/common.js"></script>
     <script>
@@ -49,15 +129,27 @@
             var longitude;
             var markers = [];
             var mapOpen = false;
-
             socket.on('message', function (data) {
                 //메시지
                 var output = '';
-                output += "" + data.name + " 님 : " + data.message + "\n";
-                var origin = $("#content").val();
+                var from = '';
+                if (socket.id == data.socketId) {
+                    from = "self";
+                }
+                else {
+                    from = "other"
+                }
+                var today = new Date();
+                output += "<li class='"+from+"'>"
+                        + "<div class='avatar'>" + data.name + "</div>"
+                        + "<div class='messages'>"
+                        + "<p>" + data.message + "</p>"
+                        + "</div>"
+                        + "<time>" + today.getHours() + '시 ' + today.getMinutes() + '분&nbsp;' + "</time>";
+                        + "</li>";
                 //채팅창에 메시지 추가
-                $("#content").val(origin + output);
-                $("#content").scrollTop($("#content")[0].scrollHeight);
+                $("#discussion").append(output);
+                $("#discussionForm").scrollTop($("#discussionForm")[0].scrollHeight);
             });
 
             socket.on('addMarker', function (data) {
@@ -109,7 +201,10 @@
                     alert("닉네임을 입력하세요.");
                     return;
                 }
-
+                else if ($('#name').val().length > 8) {
+                    alert("닉네임은 8자 이하로 설정해주세요.");
+                    return;
+                }
                 $('#name').attr("readonly", true);
                 socket.emit('message', {
                     name: $('#name').val(),
@@ -117,12 +212,15 @@
                     date: new Date().toString()
                 });
                 $('#message').val("");
-                $('#message').focus();
             });
             //메시지 엔터키 입력
             $('#message').keydown(function (e) {
                 if (!$('#name').val()) {
                     alert("닉네임을 입력하세요.");
+                    return;
+                }
+                else if ($('#name').val().length > 8) {
+                    alert("닉네임은 8자 이하로 설정해주세요.");
                     return;
                 }
                 if (e.keyCode == 13) {
@@ -133,7 +231,6 @@
                         date: new Date().toString()
                     });
                     $('#message').val("");
-                    $('#message').focus();
                 }
             });
             //맵 오픈
@@ -172,7 +269,13 @@
                     });    
                 }
                 function onErrorGeolocation(error) {
-                    alert("에러코드 : " + error.code);
+                    if (error.code == 1) {
+                        alert("기기의 위치설정이 되어있지 않습니다.");
+                    }
+                    else if (error.code == 2) {
+                        alert("적용대상 도메인이 아닙니다.");
+                    }
+                    
                 }
 
                 if (navigator.geolocation) {
@@ -229,9 +332,11 @@
                     </div>
                     <button type="button" class="btn btn-pink" id="messageEnter">메시지 전송</button>
                 </form>
+            <div id="discussionForm">
                 <div class="form-group">
-                    <textarea class="form-control" rows="10" id="content" readonly></textarea>
+                    <ol class="discussion" id="discussion"></ol>
                 </div>
+            </div>
             <button id="mapButton" type="button" class="btn btn-brown" data-toggle="modal" data-target="#myModal">위치 공유</button>
         </section>
         <!-- Button trigger modal -->

@@ -32,6 +32,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('message', function(data){
         //클라이언트의 message 이벤트를 발생시킵니다.
         console.log("아이디 : " + data.name + ", 내용 : " + data.message + ", 날짜 : " + data.date + "(" + socket.request.connection.remoteAddress +")"); 
+        data.socketId = socket.id;
         io.sockets.emit('message', data);
     });
 
