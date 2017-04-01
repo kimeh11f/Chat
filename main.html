@@ -135,18 +135,27 @@
                 var from = '';
                 if (socket.id == data.socketId) {
                     from = "self";
+                    var today = new Date();
+                    output += "<li class='" + from + "'>"
+                        + "<div class='avatar'></div>"
+                        + "<div class='messages'>"
+                        + "<p>" + data.message + "</p>"
+                        + "</div>"
+                        + "<time>" + today.getHours() + '시 ' + today.getMinutes() + '분&nbsp;' + "</time>";
+                    + "</li>";
                 }
                 else {
-                    from = "other"
-                }
-                var today = new Date();
-                output += "<li class='"+from+"'>"
+                    from = "other";
+                    var today = new Date();
+                    output += "<li class='" + from + "'>"
                         + "<div class='avatar'>" + data.name + "</div>"
                         + "<div class='messages'>"
                         + "<p>" + data.message + "</p>"
                         + "</div>"
                         + "<time>" + today.getHours() + '시 ' + today.getMinutes() + '분&nbsp;' + "</time>";
-                        + "</li>";
+                    + "</li>";
+                }
+
                 //채팅창에 메시지 추가
                 $("#discussion").append(output);
                 $("#discussionForm").scrollTop($("#discussionForm")[0].scrollHeight);
