@@ -17,7 +17,6 @@
 
     <style>
         @import url(style/style.css);
-
         #discussion {
             font-family: 'Nanum Myeongjo', serif;
             color: black;
@@ -129,6 +128,10 @@
             var longitude;
             var markers = [];
             var mapOpen = false;
+
+            socket.on('disconnect', function () {
+                alert("연결이 종료되었습니다.");
+            });
             socket.on('message', function (data) {
                 //메시지
                 var output = '';
