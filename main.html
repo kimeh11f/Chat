@@ -295,7 +295,7 @@
                 }
             });
             //맵 닫기
-            $('#closeMap').click(function () {
+            $('#myModal').on('hidden.bs.modal', function (e) {
                 map = null;
                 latitude = null;
                 longitude = null;
